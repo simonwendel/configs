@@ -5,8 +5,7 @@ module.exports = function (config) {
         frameworks: ['jasmine'],
         plugins: [
             require('karma-jasmine'),
-            require('karma-phantomjs-launcher'),
-            require('karma-htmlfile-reporter')
+            require('karma-phantomjs-launcher')
         ],
 
         files: [
@@ -30,13 +29,7 @@ module.exports = function (config) {
 
         exclude: [],
         preprocessors: {},
-        reporters: ['progress', 'html'],
-
-        htmlReporter: {
-            outputFile: '_test-output/tests.html',
-            pageTitle: 'Unit Tests',
-            subPageTitle: __dirname
-        },
+        reporters: ['progress'],
 
         port: 9876,
         colors: true,
