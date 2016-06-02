@@ -6,7 +6,7 @@ link-checker-results.txt
 **/*npm-debug.log.*
 *.js
 *.js.map
-_test-output
+coverage
 _temp
 
 !config.js.old

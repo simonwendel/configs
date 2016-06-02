@@ -5,7 +5,9 @@ module.exports = function (config) {
         frameworks: ['jasmine'],
         plugins: [
             require('karma-jasmine'),
-            require('karma-phantomjs-launcher')
+            require('karma-phantomjs-launcher'),
+            require('karma-coverage'),
+            require('karma-remap-istanbul')
         ],
 
         files: [
@@ -28,8 +30,27 @@ module.exports = function (config) {
         },
 
         exclude: [],
-        preprocessors: {},
-        reporters: ['progress'],
+        preprocessors: {
+            'app/**/!(*spec).js': ['coverage']
+        },
+        reporters: ['progress', 'coverage', 'karma-remap-istanbul'],
+
+        coverageReporter: {
+            reporters: [{
+                type: 'json',
+                subdir: '.',
+                file: 'coverage.json'
+            }]
+        },
+
+        remapIstanbulReporter: {
+            src: 'coverage/coverage.json',
+            reports: {
+                html: 'coverage'
+            },
+            timeoutNotCreated: 1000,
+            timeoutNoMoreFiles: 1000
+        },
 
         port: 9876,
         colors: true,
