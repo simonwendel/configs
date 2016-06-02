@@ -35,7 +35,7 @@
 
     packages['base/app'] = {
         defaultExtension: 'js',
-        format: 'cjs',
+        format: 'register',
         map: Object.keys(window.__karma__.files).filter(onlyAppFiles).reduce(createPathRecords, {})
     };
 
