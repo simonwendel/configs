@@ -12,3 +12,4 @@ _temp
 !config.js.old
 !typings/typings.d.ts
 !karma.*.js
+!gulpfile.js
