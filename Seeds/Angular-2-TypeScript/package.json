@@ -3,13 +3,7 @@
   "version": "1.0.0",
   "description": "A basic seed for Angular 2 with TypeScript",
   "scripts": {
-    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
-    "lint": "tslint ./app/**/*.ts -t verbose",
-    "lite": "lite-server",
     "postinstall": "typings install",
-    "test": "tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\"",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
     "typings": "typings"
   },
   "keywords": [],
