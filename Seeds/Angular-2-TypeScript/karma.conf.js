@@ -6,8 +6,7 @@ module.exports = function (config) {
         plugins: [
             require('karma-jasmine'),
             require('karma-phantomjs-launcher'),
-            require('karma-coverage'),
-            require('karma-remap-istanbul')
+            require('karma-coverage')
         ],
 
         files: [
@@ -33,7 +32,8 @@ module.exports = function (config) {
         preprocessors: {
             'app/**/!(*spec).js': ['coverage']
         },
-        reporters: ['progress', 'coverage', 'karma-remap-istanbul'],
+
+        reporters: ['progress', 'coverage'],
 
         coverageReporter: {
             reporters: [{
@@ -43,20 +43,9 @@ module.exports = function (config) {
             }]
         },
 
-        remapIstanbulReporter: {
-            src: 'coverage/coverage.json',
-            reports: {
-                html: 'coverage'
-            },
-            timeoutNotCreated: 1000,
-            timeoutNoMoreFiles: 1000
-        },
-
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
-        autoWatch: true,
-        browsers: ['PhantomJS'],
-        singleRun: false
+        browsers: ['PhantomJS']
     })
 };

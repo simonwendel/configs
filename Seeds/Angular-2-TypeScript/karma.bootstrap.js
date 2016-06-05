@@ -57,8 +57,7 @@
             __karma__.start();
         }, function (error) {
             __karma__.error(error.stack || error);
-        })
-        .then(logSuccess, logError);
+        });
 
     function createPathRecords(pathsMapping, appPath) {
         var pathParts = appPath.split('/');
@@ -82,17 +81,5 @@
             .map(function (moduleName) {
                 return System.import(moduleName);
             });
-    }
-
-    function logSuccess() {
-        console.log(
-            'Spec files loaded:\n  ' +
-            specFiles.join('\n  ') +
-            '\nStarting Jasmine testrunner');
-        __karma__.start();
-    }
-
-    function logError(error) {
-        __karma__.error(error.stack || error);
     }
 })();
