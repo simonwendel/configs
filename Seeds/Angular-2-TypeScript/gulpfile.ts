@@ -1,9 +1,16 @@
 import {Gulpclass, Task, SequenceTask} from 'gulpclass/Decorators';
 
 /* Configuration. */
-const TSCONFIG = 'tsconfig.json';
 const BASEDIR = './';
 const APPDIR = './app/';
+
+const FILES = {
+    TYPESCRIPTS: APPDIR + '**/*.ts',
+    JAVASCRIPTS: APPDIR + '**/*.js',
+    SOURCEMAPS: APPDIR + '**/*.js.map',
+    TSCONFIG: 'tsconfig.json',
+    KARMACONF: 'karma.conf.js'
+};
 
 /* Global require should always be available at runtime. */
 declare function require(name: string): any;
@@ -19,7 +26,7 @@ const Server = require('karma').Server;
 @Gulpclass()
 export class Gulpfile {
 
-    private tsProject = tsc.createProject(TSCONFIG);
+    private tsProject = tsc.createProject(FILES.TSCONFIG);
 
     /**
      * COMPILE.
@@ -44,7 +51,7 @@ export class Gulpfile {
      */
     @Task()
     watch(done: Function) {
-        gulp.watch([APPDIR + '**/*.ts'], ['compile']);
+        gulp.watch([FILES.TYPESCRIPTS], ['compile']);
         done();
     }
 
@@ -55,8 +62,8 @@ export class Gulpfile {
     @Task()
     clean(done: Function) {
         return del([
-                APPDIR + '**/*.js',
-                APPDIR + '**/*.js.map'],
+                FILES.JAVASCRIPTS,
+                FILES.SOURCEMAPS],
             done);
     }
 
@@ -68,7 +75,7 @@ export class Gulpfile {
     @Task('tdd', ['compile'])
     tdd(done: Function) {
         new Server({
-            configFile: __dirname + '/karma.conf.js',
+            configFile: __dirname + '/' + FILES.KARMACONF,
             autoWatch: true,
             singleRun: false
         }, done).start();
