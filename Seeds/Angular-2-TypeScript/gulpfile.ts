@@ -94,6 +94,19 @@ export class Gulpfile {
     }
 
     /**
+     * TEST.
+     * Runs the jasmine test suite in the karma runner, but only once.
+     */
+    @Task('test', ['compile'])
+    test(done: Function) {
+        new Server({
+            configFile: __dirname + '/' + FILES.KARMACONF,
+            autoWatch: false,
+            singleRun: true
+        }, done).start();
+    }
+
+    /**
      * DEFAULT.
      * Runs TDD.
      */
