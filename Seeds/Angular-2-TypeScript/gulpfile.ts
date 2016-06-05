@@ -30,18 +30,34 @@ export class Gulpfile {
     private tsProject = tsc.createProject(FILES.TSCONFIG);
 
     /**
-     * COMPILE.
-     * Builds TypeScript source files into the application directory.
+     * DEFAULT.
+     * Runs TDD.
      */
-    @Task('compile', ['lint'])
-    compile() {
-        const tsResult = this.tsProject.src()
-            .pipe(sourcemaps.init())
-            .pipe(tsc(this.tsProject));
+    @SequenceTask()
+    default() {
+        return ['clean', 'watch', 'tdd'];
+    }
 
-        return tsResult.js
-            .pipe(sourcemaps.write(BASEDIR, {sourceRoot: APPDIR}))
-            .pipe(gulp.dest((file) => file.base));
+    /**
+     * CLEAN.
+     * Cleans compiled files from the application directory.
+     */
+    @Task()
+    clean() {
+        return del([
+            FILES.JAVASCRIPTS,
+            FILES.SOURCEMAPS]);
+    }
+
+    /**
+     * WATCH.
+     * Watches TypeScript files in the application directory and compiles them
+     * whenever they change.
+     */
+    @Task()
+    watch(done: Function) {
+        gulp.watch(FILES.TYPESCRIPTS, ['compile']);
+        done();
     }
 
     /**
@@ -59,25 +75,18 @@ export class Gulpfile {
     }
 
     /**
-     * WATCH.
-     * Watches TypeScript files in the application directory and compiles them
-     * whenever they change.
+     * COMPILE.
+     * Builds TypeScript source files into the application directory.
      */
-    @Task()
-    watch(done: Function) {
-        gulp.watch(FILES.TYPESCRIPTS, ['compile']);
-        done();
-    }
+    @Task('compile', ['lint'])
+    compile() {
+        const tsResult = this.tsProject.src()
+            .pipe(sourcemaps.init())
+            .pipe(tsc(this.tsProject));
 
-    /**
-     * CLEAN.
-     * Cleans compiled files from the application directory.
-     */
-    @Task()
-    clean() {
-        return del([
-            FILES.JAVASCRIPTS,
-            FILES.SOURCEMAPS]);
+        return tsResult.js
+            .pipe(sourcemaps.write(BASEDIR, {sourceRoot: APPDIR}))
+            .pipe(gulp.dest((file) => file.base));
     }
 
     /**
@@ -108,6 +117,15 @@ export class Gulpfile {
     }
 
     /**
+     * DELETE-COVERAGE.
+     * Deletes old code coverage data, if present.
+     */
+    @Task('delete-coverage')
+    deleteCoverage() {
+        return del('./coverage');
+    }
+
+    /**
      * COVERAGE.
      * Runs the jasmine test suite in the karma runner, once, and then
      * remaps the Istanbul code coverage data back to the original
@@ -124,24 +142,6 @@ export class Gulpfile {
                     'json': './coverage/coverage-remapped.json'
                 }
             }));
-    }
-
-    /**
-     * DELETE-COVERAGE.
-     * Deletes old code coverage data, if present.
-     */
-    @Task('delete-coverage')
-    deleteCoverage() {
-        return del('./coverage');
-    }
-
-    /**
-     * DEFAULT.
-     * Runs TDD.
-     */
-    @SequenceTask()
-    default() {
-        return ['clean', 'watch', 'tdd'];
     }
 
 }
