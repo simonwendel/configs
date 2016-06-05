@@ -1,19 +1,21 @@
-import {Gulpclass, Task, SequenceTask, } from "gulpclass/Decorators";
+import {Gulpclass, Task, SequenceTask} from 'gulpclass/Decorators';
 
 /* Configuration. */
-const TSCONFIG = 'tsconfig.json';
-const BASEDIR = './';
-const APPDIR = './app/';
+const TSCONFIG   = 'tsconfig.json';
+const BASEDIR    = './';
+const APPDIR     = './app/';
 
 /* Global require should always be available at runtime. */
 declare function require(name:string):any;
 
-/* Gulp modules. */
-const gulp = require("gulp");
-const tsc = require('gulp-typescript');
+/* Gulp modules and stuff. */
+const gulp       = require('gulp');
+const watch      = require('gulp-watch');
+const plumber    = require('gulp-plumber');
+const del        = require('del');
+const tsc        = require('gulp-typescript');
 const sourcemaps = require('gulp-sourcemaps');
-const del = require('del');
-const Server = require('karma').Server;
+const Server     = require('karma').Server;
 
 @Gulpclass()
 export class Gulpfile {
@@ -24,15 +26,27 @@ export class Gulpfile {
      * COMPILE.
      * Builds TypeScript source files into the application directory.
      */
-    @Task('compile', ['clean'])
+    @Task('compile')
     compile() {
         const tsResult = this.tsProject.src()
+            .pipe(plumber())
             .pipe(sourcemaps.init())
             .pipe(tsc(this.tsProject));
 
         return tsResult.js
             .pipe(sourcemaps.write(BASEDIR))
             .pipe(gulp.dest((file) => file.base));
+    }
+
+    /**
+     * WATCH.
+     * Watches TypeScript files in the application directory and compiles them
+     * whenever they change.
+     */
+    @Task()
+    watch(cb:Function) {
+        gulp.watch([APPDIR + '**/*.ts'], ['compile']);
+        cb();
     }
 
     /**
@@ -67,7 +81,7 @@ export class Gulpfile {
      */
     @SequenceTask()
     default() {
-        return ['tdd'];
+        return ['clean', 'watch', 'tdd'];
     }
 
 }
