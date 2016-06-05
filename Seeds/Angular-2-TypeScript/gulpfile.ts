@@ -22,6 +22,7 @@ const del = require('del');
 const tsc = require('gulp-typescript');
 const sourcemaps = require('gulp-sourcemaps');
 const Server = require('karma').Server;
+const tslint = require('gulp-tslint');
 
 @Gulpclass()
 export class Gulpfile {
@@ -32,7 +33,7 @@ export class Gulpfile {
      * COMPILE.
      * Builds TypeScript source files into the application directory.
      */
-    @Task('compile')
+    @Task('compile', ['lint'])
     compile() {
         const tsResult = this.tsProject.src()
             .pipe(plumber())
@@ -42,6 +43,20 @@ export class Gulpfile {
         return tsResult.js
             .pipe(sourcemaps.write(BASEDIR))
             .pipe(gulp.dest((file) => file.base));
+    }
+
+    /**
+     * LINT.
+     * Runs tslint on all TypeScript source files in the application directory.
+     */
+    @Task()
+    lint() {
+        gulp.src(FILES.TYPESCRIPTS)
+            .pipe(tslint())
+            .pipe(tslint.report('prose', {
+                summarizeFailureOutput: true,
+                emitError: false
+            }));
     }
 
     /**
