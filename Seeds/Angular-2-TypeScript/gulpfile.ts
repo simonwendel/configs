@@ -51,7 +51,7 @@ export class Gulpfile {
      */
     @Task()
     lint() {
-        gulp.src(FILES.TYPESCRIPTS)
+        return gulp.src(FILES.TYPESCRIPTS)
             .pipe(tslint())
             .pipe(tslint.report('prose', {
                 summarizeFailureOutput: true,
@@ -75,11 +75,10 @@ export class Gulpfile {
      * Cleans compiled files from the application directory.
      */
     @Task()
-    clean(done: Function) {
+    clean() {
         return del([
                 FILES.JAVASCRIPTS,
-                FILES.SOURCEMAPS],
-            done);
+                FILES.SOURCEMAPS]);
     }
 
     /**
