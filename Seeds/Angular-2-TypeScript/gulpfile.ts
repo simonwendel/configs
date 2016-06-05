@@ -22,6 +22,7 @@ const tsc = require('gulp-typescript');
 const sourcemaps = require('gulp-sourcemaps');
 const Server = require('karma').Server;
 const tslint = require('gulp-tslint');
+const remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul');
 
 @Gulpclass()
 export class Gulpfile {
@@ -39,7 +40,7 @@ export class Gulpfile {
             .pipe(tsc(this.tsProject));
 
         return tsResult.js
-            .pipe(sourcemaps.write(BASEDIR))
+            .pipe(sourcemaps.write(BASEDIR, {sourceRoot: APPDIR}))
             .pipe(gulp.dest((file) => file.base));
     }
 
@@ -104,6 +105,34 @@ export class Gulpfile {
             autoWatch: false,
             singleRun: true
         }, done).start();
+    }
+
+    /**
+     * COVERAGE.
+     * Runs the jasmine test suite in the karma runner, once, and then
+     * remaps the Istanbul code coverage data back to the original
+     * TypeScript files.
+     */
+    @Task('coverage', ['delete-coverage', 'test'])
+    coverage() {
+        return gulp.src('./coverage/coverage-final.json')
+            .pipe(remapIstanbul({
+                // basePath: __dirname,
+                useAbsolutePaths: true,
+                reports: {
+                    'html': './coverage/html',
+                    'json': './coverage/coverage-remapped.json'
+                }
+            }));
+    }
+
+    /**
+     * DELETE-COVERAGE.
+     * Deletes old code coverage data, if present.
+     */
+    @Task('delete-coverage')
+    deleteCoverage() {
+        return del('./coverage');
     }
 
     /**
