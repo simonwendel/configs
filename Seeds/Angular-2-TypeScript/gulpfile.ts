@@ -17,7 +17,6 @@ declare function require(name: string): any;
 
 /* Gulp modules and stuff. */
 const gulp = require('gulp');
-const plumber = require('gulp-plumber');
 const del = require('del');
 const tsc = require('gulp-typescript');
 const sourcemaps = require('gulp-sourcemaps');
@@ -36,7 +35,6 @@ export class Gulpfile {
     @Task('compile', ['lint'])
     compile() {
         const tsResult = this.tsProject.src()
-            .pipe(plumber())
             .pipe(sourcemaps.init())
             .pipe(tsc(this.tsProject));
 
@@ -66,7 +64,7 @@ export class Gulpfile {
      */
     @Task()
     watch(done: Function) {
-        gulp.watch([FILES.TYPESCRIPTS], ['compile']);
+        gulp.watch(FILES.TYPESCRIPTS, ['compile']);
         done();
     }
 
