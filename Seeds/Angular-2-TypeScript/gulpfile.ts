@@ -1,21 +1,20 @@
 import {Gulpclass, Task, SequenceTask} from 'gulpclass/Decorators';
 
 /* Configuration. */
-const TSCONFIG   = 'tsconfig.json';
-const BASEDIR    = './';
-const APPDIR     = './app/';
+const TSCONFIG = 'tsconfig.json';
+const BASEDIR = './';
+const APPDIR = './app/';
 
 /* Global require should always be available at runtime. */
-declare function require(name:string):any;
+declare function require(name: string): any;
 
 /* Gulp modules and stuff. */
-const gulp       = require('gulp');
-const watch      = require('gulp-watch');
-const plumber    = require('gulp-plumber');
-const del        = require('del');
-const tsc        = require('gulp-typescript');
+const gulp = require('gulp');
+const plumber = require('gulp-plumber');
+const del = require('del');
+const tsc = require('gulp-typescript');
 const sourcemaps = require('gulp-sourcemaps');
-const Server     = require('karma').Server;
+const Server = require('karma').Server;
 
 @Gulpclass()
 export class Gulpfile {
@@ -44,7 +43,7 @@ export class Gulpfile {
      * whenever they change.
      */
     @Task()
-    watch(done:Function) {
+    watch(done: Function) {
         gulp.watch([APPDIR + '**/*.ts'], ['compile']);
         done();
     }
@@ -54,7 +53,7 @@ export class Gulpfile {
      * Cleans compiled files from the application directory.
      */
     @Task()
-    clean(done:Function) {
+    clean(done: Function) {
         return del([
                 APPDIR + '**/*.js',
                 APPDIR + '**/*.js.map'],
@@ -67,7 +66,7 @@ export class Gulpfile {
      * and repeated runs on file changes.
      */
     @Task('tdd', ['compile'])
-    tdd(done:Function) {
+    tdd(done: Function) {
         new Server({
             configFile: __dirname + '/karma.conf.js',
             autoWatch: true,
