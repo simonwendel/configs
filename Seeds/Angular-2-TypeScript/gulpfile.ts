@@ -75,8 +75,8 @@ export class Gulpfile {
     @Task()
     clean() {
         return del([
-                FILES.JAVASCRIPTS,
-                FILES.SOURCEMAPS]);
+            FILES.JAVASCRIPTS,
+            FILES.SOURCEMAPS]);
     }
 
     /**
