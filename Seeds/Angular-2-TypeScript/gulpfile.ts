@@ -44,9 +44,9 @@ export class Gulpfile {
      * whenever they change.
      */
     @Task()
-    watch(cb:Function) {
+    watch(done:Function) {
         gulp.watch([APPDIR + '**/*.ts'], ['compile']);
-        cb();
+        done();
     }
 
     /**
@@ -54,11 +54,11 @@ export class Gulpfile {
      * Cleans compiled files from the application directory.
      */
     @Task()
-    clean(cb:Function) {
+    clean(done:Function) {
         return del([
                 APPDIR + '**/*.js',
                 APPDIR + '**/*.js.map'],
-            cb);
+            done);
     }
 
     /**
@@ -67,12 +67,12 @@ export class Gulpfile {
      * and repeated runs on file changes.
      */
     @Task('tdd', ['compile'])
-    tdd(cb:Function) {
+    tdd(done:Function) {
         new Server({
             configFile: __dirname + '/karma.conf.js',
             autoWatch: true,
             singleRun: false
-        }, cb).start();
+        }, done).start();
     }
 
     /**
