@@ -31,7 +31,7 @@ const FILES = {
     KARMACONF:   'karma.conf.js'
 };
 
-/* Global require should always be available at runtime. */
+/* Hack: Global require should always be available at runtime. */
 declare function require(name: string): any;
 
 /* Gulp modules and stuff. */
