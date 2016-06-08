@@ -20,13 +20,15 @@
 import {Gulpclass, Task, SequenceTask} from 'gulpclass/Decorators';
 
 /* Configuration. */
-const BASEDIR = './',
-      APPDIR  = './app/';
+const DIRECTORIES = {
+    BASE: './',
+    APP:  './app/'
+};
 
 const FILES = {
-    TYPESCRIPTS: APPDIR + '**/*.ts',
-    JAVASCRIPTS: APPDIR + '**/*.js',
-    SOURCEMAPS:  APPDIR + '**/*.js.map',
+    TYPESCRIPTS: DIRECTORIES.APP + '**/*.ts',
+    JAVASCRIPTS: DIRECTORIES.APP + '**/*.js',
+    SOURCEMAPS:  DIRECTORIES.APP + '**/*.js.map',
     TSCONFIG:    'tsconfig.json',
     KARMACONF:   'karma.conf.js'
 };
@@ -105,7 +107,7 @@ export class Gulpfile {
             .pipe(tsc(this.tsProject));
 
         return tsResult.js
-            .pipe(sourcemaps.write(BASEDIR, {sourceRoot: APPDIR}))
+            .pipe(sourcemaps.write(DIRECTORIES.BASE, {sourceRoot: DIRECTORIES.APP}))
             .pipe(gulp.dest((file) => file.base));
     }
 
@@ -115,7 +117,7 @@ export class Gulpfile {
      */
     @Task('start', ['compile', 'watch'])
     start() {
-        return gulp.src(BASEDIR)
+        return gulp.src(DIRECTORIES.BASE)
             .pipe(webserver({
                 livereload: true,
                 open:       true
