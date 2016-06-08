@@ -41,7 +41,8 @@ const gulp          = require('gulp'),
       sourcemaps    = require('gulp-sourcemaps'),
       Server        = require('karma').Server,
       tslint        = require('gulp-tslint'),
-      remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul');
+      remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul'),
+      webserver     = require('gulp-webserver');
 
 @Gulpclass()
 export class Gulpfile {
@@ -106,6 +107,19 @@ export class Gulpfile {
         return tsResult.js
             .pipe(sourcemaps.write(BASEDIR, {sourceRoot: APPDIR}))
             .pipe(gulp.dest((file) => file.base));
+    }
+
+    /**
+     * START.
+     * Compiles, watches and launches web server with live-reload.
+     */
+    @Task('start', ['compile', 'watch'])
+    start() {
+        return gulp.src(BASEDIR)
+            .pipe(webserver({
+                livereload: true,
+                open:       true
+            }));
     }
 
     /**
