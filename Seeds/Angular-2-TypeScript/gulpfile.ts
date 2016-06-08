@@ -20,8 +20,8 @@
 import {Gulpclass, Task, SequenceTask} from 'gulpclass/Decorators';
 
 /* Configuration. */
-const BASEDIR = './';
-const APPDIR  = './app/';
+const BASEDIR = './',
+      APPDIR  = './app/';
 
 const FILES = {
     TYPESCRIPTS: APPDIR + '**/*.ts',
@@ -35,13 +35,13 @@ const FILES = {
 declare function require(name: string): any;
 
 /* Gulp modules and stuff. */
-const gulp          = require('gulp');
-const del           = require('del');
-const tsc           = require('gulp-typescript');
-const sourcemaps    = require('gulp-sourcemaps');
-const Server        = require('karma').Server;
-const tslint        = require('gulp-tslint');
-const remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul');
+const gulp          = require('gulp'),
+      del           = require('del'),
+      tsc           = require('gulp-typescript'),
+      sourcemaps    = require('gulp-sourcemaps'),
+      Server        = require('karma').Server,
+      tslint        = require('gulp-tslint'),
+      remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul');
 
 @Gulpclass()
 export class Gulpfile {
