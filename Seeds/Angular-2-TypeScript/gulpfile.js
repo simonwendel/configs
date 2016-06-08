@@ -16,14 +16,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * 
+ *
  * @file Reads and transpiles gulpfile.ts into an in-memory gulpfile.js
  */
 
-var fs = require('fs');
-var tsc = require('typescript');
-
-var typescript = fs.readFileSync("./gulpfile.ts").toString();
-var javascript = tsc.transpile(typescript);
+var fs         = require('fs'),
+    tsc        = require('typescript'),
+    typescript = fs.readFileSync("./gulpfile.ts").toString(),
+    javascript = tsc.transpile(typescript);
 
 eval(javascript);

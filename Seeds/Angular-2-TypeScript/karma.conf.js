@@ -20,9 +20,9 @@
 module.exports = function (config) {
 
     config.set({
-        basePath: '.',
+        basePath:   '.',
         frameworks: ['jasmine'],
-        plugins: [
+        plugins:    [
             require('karma-jasmine'),
             require('karma-phantomjs-launcher'),
             require('karma-coverage')
@@ -47,7 +47,7 @@ module.exports = function (config) {
             '/app/': '/base/app/'
         },
 
-        exclude: [],
+        exclude:       [],
         preprocessors: {
             'app/**/!(*spec).js': ['coverage']
         },
@@ -56,13 +56,13 @@ module.exports = function (config) {
 
         coverageReporter: {
             reporters: [{
-                type: 'json',
+                type:   'json',
                 subdir: '.'
             }]
         },
 
-        port: 9876,
-        colors: true,
+        port:     9876,
+        colors:   true,
         logLevel: config.LOG_INFO,
         browsers: ['PhantomJS']
     })

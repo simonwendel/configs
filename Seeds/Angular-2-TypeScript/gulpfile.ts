@@ -21,26 +21,26 @@ import {Gulpclass, Task, SequenceTask} from 'gulpclass/Decorators';
 
 /* Configuration. */
 const BASEDIR = './';
-const APPDIR = './app/';
+const APPDIR  = './app/';
 
 const FILES = {
     TYPESCRIPTS: APPDIR + '**/*.ts',
     JAVASCRIPTS: APPDIR + '**/*.js',
-    SOURCEMAPS: APPDIR + '**/*.js.map',
-    TSCONFIG: 'tsconfig.json',
-    KARMACONF: 'karma.conf.js'
+    SOURCEMAPS:  APPDIR + '**/*.js.map',
+    TSCONFIG:    'tsconfig.json',
+    KARMACONF:   'karma.conf.js'
 };
 
 /* Global require should always be available at runtime. */
 declare function require(name: string): any;
 
 /* Gulp modules and stuff. */
-const gulp = require('gulp');
-const del = require('del');
-const tsc = require('gulp-typescript');
-const sourcemaps = require('gulp-sourcemaps');
-const Server = require('karma').Server;
-const tslint = require('gulp-tslint');
+const gulp          = require('gulp');
+const del           = require('del');
+const tsc           = require('gulp-typescript');
+const sourcemaps    = require('gulp-sourcemaps');
+const Server        = require('karma').Server;
+const tslint        = require('gulp-tslint');
 const remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul');
 
 @Gulpclass()
@@ -89,7 +89,7 @@ export class Gulpfile {
             .pipe(tslint())
             .pipe(tslint.report('prose', {
                 summarizeFailureOutput: true,
-                emitError: false
+                emitError:              false
             }));
     }
 
@@ -117,8 +117,8 @@ export class Gulpfile {
     tdd(done: Function) {
         new Server({
             configFile: __dirname + '/' + FILES.KARMACONF,
-            autoWatch: true,
-            singleRun: false
+            autoWatch:  true,
+            singleRun:  false
         }, done).start();
     }
 
@@ -130,8 +130,8 @@ export class Gulpfile {
     test(done: Function) {
         new Server({
             configFile: __dirname + '/' + FILES.KARMACONF,
-            autoWatch: false,
-            singleRun: true
+            autoWatch:  false,
+            singleRun:  true
         }, done).start();
     }
 
@@ -154,9 +154,8 @@ export class Gulpfile {
     coverage() {
         return gulp.src('./coverage/coverage-final.json')
             .pipe(remapIstanbul({
-                // basePath: __dirname,
                 useAbsolutePaths: true,
-                reports: {
+                reports:          {
                     'html': './coverage/html',
                     'json': './coverage/coverage-remapped.json'
                 }
