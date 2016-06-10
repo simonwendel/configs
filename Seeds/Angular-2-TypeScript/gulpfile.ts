@@ -22,29 +22,29 @@ import {Gulpclass, Task, SequenceTask} from 'gulpclass/Decorators';
 /* Configuration. */
 const DIRECTORIES = {
     BASE: './',
-    APP:  './app/'
+    APP: './app/'
 };
 
 const FILES = {
     TYPESCRIPTS: DIRECTORIES.APP + '**/*.ts',
     JAVASCRIPTS: DIRECTORIES.APP + '**/*.js',
-    SOURCEMAPS:  DIRECTORIES.APP + '**/*.js.map',
-    TSCONFIG:    'tsconfig.json',
-    KARMACONF:   'karma.conf.js'
+    SOURCEMAPS: DIRECTORIES.APP + '**/*.js.map',
+    TSCONFIG: 'tsconfig.json',
+    KARMACONF: 'karma.conf.js'
 };
 
 /* Hack: Global require should always be available at runtime. */
 declare function require(name: string): any;
 
 /* Gulp modules and stuff. */
-const gulp          = require('gulp'),
-      del           = require('del'),
-      tsc           = require('gulp-typescript'),
-      sourcemaps    = require('gulp-sourcemaps'),
-      Server        = require('karma').Server,
-      tslint        = require('gulp-tslint'),
-      remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul'),
-      webserver     = require('gulp-webserver');
+const gulp = require('gulp'),
+    del = require('del'),
+    tsc = require('gulp-typescript'),
+    sourcemaps = require('gulp-sourcemaps'),
+    Server = require('karma').Server,
+    tslint = require('gulp-tslint'),
+    remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul'),
+    webserver = require('gulp-webserver');
 
 @Gulpclass()
 export class Gulpfile {
@@ -92,7 +92,7 @@ export class Gulpfile {
             .pipe(tslint())
             .pipe(tslint.report('prose', {
                 summarizeFailureOutput: true,
-                emitError:              false
+                emitError: false
             }));
     }
 
@@ -120,7 +120,7 @@ export class Gulpfile {
         return gulp.src(DIRECTORIES.BASE)
             .pipe(webserver({
                 livereload: true,
-                open:       true
+                open: true
             }));
     }
 
@@ -133,8 +133,8 @@ export class Gulpfile {
     tdd(done: Function) {
         new Server({
             configFile: __dirname + '/' + FILES.KARMACONF,
-            autoWatch:  true,
-            singleRun:  false
+            autoWatch: true,
+            singleRun: false
         }, done).start();
     }
 
@@ -146,8 +146,8 @@ export class Gulpfile {
     test(done: Function) {
         new Server({
             configFile: __dirname + '/' + FILES.KARMACONF,
-            autoWatch:  false,
-            singleRun:  true
+            autoWatch: false,
+            singleRun: true
         }, done).start();
     }
 
@@ -171,7 +171,7 @@ export class Gulpfile {
         return gulp.src('./coverage/coverage-final.json')
             .pipe(remapIstanbul({
                 useAbsolutePaths: true,
-                reports:          {
+                reports: {
                     'html': './coverage/html',
                     'json': './coverage/coverage-remapped.json'
                 }

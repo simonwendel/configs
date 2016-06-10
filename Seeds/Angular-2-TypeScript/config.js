@@ -20,14 +20,14 @@
 (function () {
 
     var map = {
-        'app':      'app',
-        'rxjs':     'node_modules/rxjs',
+        'app': 'app',
+        'rxjs': 'node_modules/rxjs',
         '@angular': 'node_modules/@angular'
     };
 
     var packages = {
-        'app':                        {main: 'main.js', defaultExtension: 'js'},
-        'rxjs':                       {defaultExtension: 'js'},
+        'app': {main: 'main.js', defaultExtension: 'js'},
+        'rxjs': {defaultExtension: 'js'},
         'angular2-in-memory-web-api': {defaultExtension: 'js'}
     };
 
@@ -47,7 +47,7 @@
     });
 
     var config = {
-        map:      map,
+        map: map,
         packages: packages
     };
 

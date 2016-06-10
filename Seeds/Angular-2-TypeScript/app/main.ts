@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {bootstrap}    from '@angular/platform-browser-dynamic';
+import {bootstrap} from '@angular/platform-browser-dynamic';
 import {AppComponent} from './app.component';
 
 bootstrap(AppComponent);

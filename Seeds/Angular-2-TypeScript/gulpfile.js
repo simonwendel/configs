@@ -20,8 +20,8 @@
  * @file Reads and transpiles gulpfile.ts into an in-memory gulpfile.js
  */
 
-var fs         = require('fs'),
-    tsc        = require('typescript'),
+var fs = require('fs'),
+    tsc = require('typescript'),
     typescript = fs.readFileSync("./gulpfile.ts").toString(),
     javascript = tsc.transpile(typescript);
 
