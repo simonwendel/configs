@@ -25,4 +25,5 @@ import {AppComponentTemplate} from './app.component.tmpl';
     template: AppComponentTemplate
 })
 export class AppComponent {
+    public message: string = 'Yo, this works!';
 }
