@@ -18,5 +18,5 @@
  */
 
 export const AppComponentTemplate = `
-    <span>Yo, this works!</span>
+    <span>{{message}}</span>
 `;
