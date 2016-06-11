@@ -17,12 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Component} from '@angular/core';
-import {AppComponentTemplate} from './app.component.tmpl';
-
-@Component({
-    selector: 'my-app',
-    template: AppComponentTemplate
-})
-export class AppComponent {
-}
+export const AppComponentTemplate = `
+    <span>Yo, this works!</span>
+`;
