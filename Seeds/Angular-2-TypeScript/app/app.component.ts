@@ -19,7 +19,7 @@
 
 import { Component } from '@angular/core';
 
-import { APP_COMPONENT_TEMPLATE } from './app.component.tmpl';
+import { APP_COMPONENT_TEMPLATE } from './app.component.template';
 
 @Component({
     selector: 'my-app',
