@@ -20,7 +20,6 @@
 (function () {
 
     var map = {
-        'app': 'app',
         'rxjs': 'node_modules/rxjs',
         '@angular': 'node_modules/@angular'
     };
