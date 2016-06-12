@@ -22,7 +22,7 @@ import { Component } from '@angular/core';
 import { APP_COMPONENT_TEMPLATE } from './app.component.template';
 
 @Component({
-    selector: 'my-app',
+    selector: 'prefix-app',
     template: APP_COMPONENT_TEMPLATE
 })
 export class AppComponent {
