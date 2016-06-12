@@ -26,5 +26,5 @@ import { APP_COMPONENT_TEMPLATE } from './app.component.template';
     template: APP_COMPONENT_TEMPLATE
 })
 export class AppComponent {
-    public message = 'Yo, this works!';
+    message = 'Yo, this works!';
 }
