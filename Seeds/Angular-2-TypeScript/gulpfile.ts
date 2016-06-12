@@ -129,7 +129,7 @@ export class Gulpfile {
      * Runs the jasmine test suite in the karma runner, with file watches
      * and repeated runs on file changes.
      */
-    @Task('tdd', ['compile'])
+    @Task('tdd', ['compile', 'watch'])
     tdd(done: Function) {
         new Server({
             configFile: __dirname + '/' + FILES.KARMACONF,
