@@ -17,10 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {describe, expect, it, injectAsync} from '@angular/core/testing';
-import {TestComponentBuilder, ComponentFixture} from '@angular/compiler/testing';
+import { describe, expect, injectAsync, it } from '@angular/core/testing';
+import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 
-import {AppComponent} from './app.component';
+import { AppComponent } from './app.component';
 
 describe('COMPONENT: app.component', () => {
 

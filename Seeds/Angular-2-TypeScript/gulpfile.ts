@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Gulpclass, Task, SequenceTask} from 'gulpclass/Decorators';
+import { Gulpclass, SequenceTask, Task } from 'gulpclass/Decorators';
 
 /* Configuration. */
 const DIRECTORIES = {
@@ -177,5 +177,4 @@ export class Gulpfile {
                 }
             }));
     }
-
 }

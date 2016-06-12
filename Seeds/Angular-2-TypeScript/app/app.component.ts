@@ -17,8 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Component} from '@angular/core';
-import {AppComponentTemplate} from './app.component.tmpl';
+import { Component } from '@angular/core';
+
+import { AppComponentTemplate } from './app.component.tmpl';
 
 @Component({
     selector: 'my-app',
