@@ -19,11 +19,11 @@
 
 import { Component } from '@angular/core';
 
-import { AppComponentTemplate } from './app.component.tmpl';
+import { APP_COMPONENT_TEMPLATE } from './app.component.tmpl';
 
 @Component({
     selector: 'my-app',
-    template: AppComponentTemplate
+    template: APP_COMPONENT_TEMPLATE
 })
 export class AppComponent {
     public message: string = 'Yo, this works!';

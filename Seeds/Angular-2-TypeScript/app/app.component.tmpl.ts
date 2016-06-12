@@ -17,6 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export const AppComponentTemplate = `
+export const APP_COMPONENT_TEMPLATE = `
     <span>{{message}}</span>
 `;
