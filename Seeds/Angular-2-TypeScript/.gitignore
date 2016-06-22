@@ -8,6 +8,7 @@ link-checker-results.txt
 *.js.map
 coverage
 _temp
+dist
 
 !config.js.old
 !typings/typings.d.ts
