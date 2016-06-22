@@ -55,8 +55,8 @@ export class Gulpfile {
      * DEFAULT.
      * Runs TDD.
      */
-    @SequenceTask()
-    default() {
+    @SequenceTask('default')
+    defaultTask() {
         return ['clean', 'watch', 'tdd'];
     }
 
