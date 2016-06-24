@@ -100,7 +100,7 @@ export class Gulpfile {
      * COMPILE.
      * Builds TypeScript source files into the application directory.
      */
-    @Task('compile', ['lint'])
+    @Task('compile', ['clean', 'lint'])
     compile() {
         const tsResult = this.tsProject.src()
             .pipe(sourcemaps.init())
