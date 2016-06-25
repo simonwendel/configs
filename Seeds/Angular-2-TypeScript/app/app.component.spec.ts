@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { describe, expect, injectAsync, it } from '@angular/core/testing';
+import { describe, expect, inject, it } from '@angular/core/testing';
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 
 import { AppComponent } from './app.component';
@@ -25,7 +25,7 @@ import { AppComponent } from './app.component';
 describe('COMPONENT: app.component', () => {
 
     it('should be instantiable.', () => {
-        injectAsync([TestComponentBuilder], (componentBuilder: TestComponentBuilder) => {
+        inject([TestComponentBuilder], (componentBuilder: TestComponentBuilder) => {
             return componentBuilder
                 .createAsync(AppComponent)
                 .then((fixture: ComponentFixture<AppComponent>) => {
