@@ -108,7 +108,7 @@ export class Gulpfile {
 
         return tsResult.js
             .pipe(sourcemaps.write(DIRECTORIES.BASE, {sourceRoot: DIRECTORIES.APP}))
-            .pipe(gulp.dest((file) => file.base));
+            .pipe(gulp.dest(file => file.base));
     }
 
     /**
