@@ -7,3 +7,4 @@ co = commit
 sshow = "!f() { git stash show stash^{/$*} -p; }; f"
 sapply = "!f() { git stash apply stash^{/$*}; }; f"
 diffstaged = diff --cached
+reset-unstaged = stash save --keep-index ;stash drop
