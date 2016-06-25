@@ -22,7 +22,8 @@ import { Gulpclass, SequenceTask, Task } from 'gulpclass/Decorators';
 /* Configuration. */
 const DIRECTORIES = {
     BASE: './',
-    APP: './app/'
+    APP: './app/',
+    DIST: './dist/'
 };
 
 const FILES = {
@@ -30,7 +31,10 @@ const FILES = {
     JAVASCRIPTS: DIRECTORIES.APP + '**/*.js',
     SOURCEMAPS: DIRECTORIES.APP + '**/*.js.map',
     TSCONFIG: 'tsconfig.json',
-    KARMACONF: 'karma.conf.js'
+    KARMACONF: 'karma.conf.js',
+    APP: DIRECTORIES.BASE + 'index.html',
+    SYSTEMCONFIG: DIRECTORIES.BASE + 'config.js',
+    OUTPUT: DIRECTORIES.DIST + 'main.js'
 };
 
 /* Hack: Global require should always be available at runtime. */
@@ -41,15 +45,23 @@ const gulp = require('gulp'),
     del = require('del'),
     tsc = require('gulp-typescript'),
     sourcemaps = require('gulp-sourcemaps'),
-    Server = require('karma').Server,
     tslint = require('gulp-tslint'),
     remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul'),
-    webserver = require('gulp-webserver');
+    webserver = require('gulp-webserver'),
+    usemin = require('gulp-usemin'),
+    uglify = require('gulp-uglify'),
+    htmlmin = require('gulp-htmlmin');
+
+/* Some helper objects */
+const Server = require('karma').Server,
+    Builder = require('systemjs-builder');
 
 @Gulpclass()
 export class Gulpfile {
 
     private tsProject = tsc.createProject(FILES.TSCONFIG);
+
+    private systemJsBuilder = new Builder(DIRECTORIES.BASE, FILES.SYSTEMCONFIG);
 
     /**
      * DEFAULT.
@@ -175,6 +187,67 @@ export class Gulpfile {
                     'html': './coverage/html',
                     'json': './coverage/coverage-remapped.json'
                 }
+            }));
+    }
+
+    /**
+     * DIST.
+     * Builds the application into DIRECTORIES.DIST, performing transforms
+     * and minification to produce a build for production use.
+     */
+    @SequenceTask()
+    dist() {
+        return ['delete-dist', 'pack-static-scripts', 'pack-app-scripts'];
+    }
+
+    /**
+     * DELETE-DIST.
+     * Deletes the build directory and all content.
+     */
+    @Task('delete-dist')
+    deleteDist() {
+        return del(DIRECTORIES.DIST);
+    }
+
+    /**
+     * PACK-STATIC-SCRIPTS.
+     * Packs application HTML and referenced scripts for production use.
+     */
+    @Task('pack-static-scripts')
+    packStaticScripts() {
+        return gulp.src(FILES.APP)
+            .pipe(usemin({
+                html: [htmlmin({collapseWhitespace: true, removeComments: true})],
+                jsv: [uglify()]
+            }))
+            .pipe(gulp.dest(DIRECTORIES.DIST));
+    }
+
+    /**
+     * PACK-APP-SCRIPTS.
+     * Packs transpiled SystemJS application scripts for production use.
+     */
+    @Task('pack-app-scripts', ['compile'])
+    packAppScripts() {
+        return this.systemJsBuilder
+            .bundle('main', FILES.OUTPUT, {
+                minify: true,
+                globalDefs: {
+                    DEBUG: false
+                }
+            });
+    }
+
+    /**
+     * DIST-START.
+     * Creates production-ready files and serves them to a browser.
+     */
+    @Task('dist-start', ['dist'])
+    distStart() {
+        return gulp.src(DIRECTORIES.DIST)
+            .pipe(webserver({
+                livereload: false,
+                open: true
             }));
     }
 }
