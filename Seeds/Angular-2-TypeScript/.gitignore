@@ -10,7 +10,7 @@ coverage
 _temp
 dist
 
-!config.js.old
+!config.js
 !typings/typings.d.ts
 !karma.*.js
 !gulpfile.js
