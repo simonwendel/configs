@@ -220,7 +220,7 @@ export class Gulpfile {
     packStaticScripts() {
         return gulp.src(FILES.APP)
             .pipe(usemin({
-                html: [htmlmin({collapseWhitespace: true, removeComments: true})],
+                html: [htmlmin({minifyCSS: true, minifyJS: true, collapseWhitespace: true, removeComments: true})],
                 js: [uglify()]
             }))
             .pipe(gulp.dest(DIRECTORIES.DIST));
