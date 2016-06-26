@@ -40,6 +40,9 @@ const FILES = {
 /* Hack: Global require should always be available at runtime. */
 declare function require(name: string): any;
 
+/* Hack: We're 100% that we have this global. */
+declare const __dirname: string;
+
 /* Gulp modules and stuff. */
 const gulp = require('gulp'),
     del = require('del'),
