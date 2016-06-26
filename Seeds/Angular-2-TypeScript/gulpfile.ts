@@ -221,7 +221,7 @@ export class Gulpfile {
         return gulp.src(FILES.APP)
             .pipe(usemin({
                 html: [htmlmin({collapseWhitespace: true, removeComments: true})],
-                jsv: [uglify()]
+                js: [uglify()]
             }))
             .pipe(gulp.dest(DIRECTORIES.DIST));
     }
