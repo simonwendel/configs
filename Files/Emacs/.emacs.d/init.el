@@ -1,31 +1,27 @@
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
 (package-initialize)
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+;; fonts and colors and crap
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(blink-cursor-mode nil)
  '(custom-enabled-themes (quote (wombat)))
+
+;; maximize screen space
  '(menu-bar-mode nil)
+ '(tool-bar-mode nil)
+
+;; set up sources 
  '(package-archives
    (quote
     (("gnu" . "https://elpa.gnu.org/packages/")
      ("melpa" . "https://melpa.org/packages/"))))
- '(package-selected-packages (quote (org)))
- '(tool-bar-mode nil))
+
+ ;; list packages to move to new machine
+ '(package-selected-packages (quote (org))))
+
+;; Visual Studio default font
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(default ((t (:family "Leelawadee UI" :foundry "outline" :slant normal :weight normal :height 120 :width normal)))))
 
 ;; flashes the modeline instead of bell for notifications
