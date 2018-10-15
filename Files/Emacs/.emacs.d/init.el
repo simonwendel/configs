@@ -19,10 +19,11 @@
 (setq global-magit-file-mode 1) ;; adds commands to file visiting buffers
 
 (custom-set-variables
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
+ '(ansi-color-faces-vector [default default default italic underline success warning error])
  '(blink-cursor-mode nil)
  '(custom-enabled-themes (quote (wombat)))
+
+ ;; remove stuff in the way
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
  '(tool-bar-mode nil))
@@ -31,14 +32,12 @@
   (quote
    (("gnu" . "https://elpa.gnu.org/packages/")
     ("melpa" . "https://melpa.org/packages/"))))
-'(package-selected-packages (quote (
-				    magit-svn
-				    magit
-				    org)))
+'(package-selected-packages (quote (magit-svn magit org)))
 
 ;; Visual Studio default font
 (custom-set-faces
- '(default ((t (:family "Leelawadee UI" :foundry "outline" :slant normal :weight normal :height 140 :width normal)))))
+ '(default ((t (:family "Leelawadee UI" :foundry "outline" :slant normal :weight normal :height 140 :width normal))))
+ '(cursor ((t (:background "magenta")))))
 
 ;; flashes the modeline instead of bell for notifications
 (setq ring-bell-function
