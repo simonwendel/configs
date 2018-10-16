@@ -39,14 +39,14 @@
 
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
 
 '(package-archives
   (quote
    (("gnu" . "https://elpa.gnu.org/packages/")
     ("melpa" . "https://melpa.org/packages/"))))
 
-'(package-selected-packages (quote (nyan-mode magit-svn magit org)))
+'(package-selected-packages (quote (nyan-mode magit-svn magit org))))
 
 ;; Visual Studio default font
 (custom-set-faces
