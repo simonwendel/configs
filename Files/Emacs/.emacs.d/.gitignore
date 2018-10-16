@@ -1,5 +1,7 @@
+*~
 auto-save-list/
 elpa/
-url/
-*~
+ido.last
+local/
 server/
+url/
