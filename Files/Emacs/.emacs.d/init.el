@@ -45,7 +45,7 @@
 
  '(ido-enable-flex-matching t)
  '(ido-mode (quote both) nil (ido))
-
+ '(uniquify-buffer-name-style (quote post-forward) nil (uniquify))
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
  '(tool-bar-mode nil)
