@@ -8,7 +8,7 @@
 (require 'sunrise-x-buttons)
 (require 'sunrise-x-modeline)
 (add-to-list 'auto-mode-alist '("\\.srvm\\'" . sr-virtual-mode))
-(global-set-key "\C-x\C-f" 'sunrise-cd)
+(global-set-key "\C-x\C-d" 'sunrise-cd)
 
 ;; set shell to Git bash
 (setq explicit-shell-file-name "C:/Program Files/Git/bin/bash.exe")
