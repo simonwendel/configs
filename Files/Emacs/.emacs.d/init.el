@@ -3,6 +3,12 @@
 ;; always start main frame maximized
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+(setq org-agenda-files (list "~/org/Todo.org"))
+
 ;; sunrise commander stuff
 ;; remember to clone into .emacs.d/local repo from
 ;; https://github.com/escherdragon/sunrise-commander.git
