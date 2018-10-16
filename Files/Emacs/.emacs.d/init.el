@@ -1,5 +1,8 @@
 (package-initialize)
 
+;; always start main frame maximized
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
 ;; sunrise commander stuff
 ;; remember to clone into .emacs.d/local repo from
 ;; https://github.com/escherdragon/sunrise-commander.git
