@@ -1,5 +1,6 @@
 *~
 auto-save-list/
+configuration.el
 elpa/
 ido.last
 local/

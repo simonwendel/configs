@@ -1,0 +1,161 @@
+* Simple config file for Emacs
+
+My personal configuration for a Windows machine running Emacs.
+
+* User interface
+
+Theme, duh...
+
+#+BEGIN_SRC emacs-lisp
+  (custom-set-variables
+   '(custom-enabled-themes (quote (wombat))))
+
+  (custom-set-variables
+   '(ansi-color-faces-vector
+     [default default default italic underline success warning error]))
+#+END_SRC
+
+The theme makes the cursor a bit hard to see, so I override it with a
+very pink and obvious color and also turn off blinking mode.
+
+#+BEGIN_SRC emacs-lisp
+  (custom-set-variables
+   '(blink-cursor-mode nil))
+
+  (custom-set-faces
+   '(cursor ((t (:background "magenta")))))
+#+END_SRC
+
+The default font is Consolas, a mono-spaced Microsoft specific font.
+
+#+BEGIN_SRC emacs-lisp
+  (custom-set-faces
+   '(default ((t (:inherit nil :stipple nil :background "#242424" :foreground "#f6f3e8" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "outline" :family "Consolas")))))
+#+END_SRC
+
+Reclaim screen space by killing the menu-bar and tool-bar. Go straight
+to scratch buffer by not showing the "Welcome to Emacs" splash screen.
+
+#+BEGIN_SRC emacs-lisp
+  (custom-set-variables
+   '(inhibit-startup-screen t)
+   '(menu-bar-mode nil)
+   '(tool-bar-mode nil))
+#+END_SRC
+
+I don't like the bell going off all the time, so the
+ring-bell-function will instead flash the modeline in an orange hue.
+
+#+BEGIN_SRC emacs-lisp
+  (setq ring-bell-function
+	(lambda () (let ((orig-fg (face-foreground 'mode-line)))
+		     (set-face-foreground 'mode-line "#F2804F")
+		     (run-with-idle-timer 0.1 nil
+					  (lambda (fg) (set-face-foreground 'mode-line fg)) orig-fg))))
+#+END_SRC
+
+I want the first frame to always be maximized, this will not affect
+the frames opened up later while running, only the first one.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'initial-frame-alist '(fullscreen . maximized))
+#+END_SRC
+
+I make switching buffers and finding files easier with ido mode and
+flexible matching. To make buffer names for files with the same file
+name easier to distinguish, uniquify will use parts of the path in the
+buffer name.
+
+#+BEGIN_SRC emacs-lisp
+  (custom-set-variables
+   '(ido-enable-flex-matching t)
+   '(ido-mode (quote both) nil (ido))
+   '(uniquify-buffer-name-style (quote post-forward) nil (uniquify)))
+#+END_SRC
+
+Who doesn't like nyan-mode?
+
+#+BEGIN_SRC emacs-lisp
+  (custom-set-variables
+   '(nyan-mode t))
+#+END_SRC
+
+* Org mode
+
+#+BEGIN_SRC emacs-lisp
+  (require 'org)
+
+  (setq org-agenda-files (list "~/org/Todo.org"))
+
+  (define-key global-map "\C-cl" 'org-store-link)
+  (define-key global-map "\C-ca" 'org-agenda)
+
+  (setq org-log-done t)
+  (setq org-src-tab-acts-natively t)
+#+END_SRC
+
+* Sunrise commander (attention needed)
+
+Since the package is not in ELPA or MELPA, we need to always clone the
+repo from [[https://github.com/escherdragon/sunrise-commander.git][Github]] or use the backup in [[file:local/sunrise-commander.tar.gz][local]] folder, after which I can.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/local/sunrise-commander")
+
+  (require 'sunrise-commander)
+  (require 'sunrise-x-buttons)
+  (require 'sunrise-x-modeline)
+
+  (global-set-key "\C-x\C-d" 'sunrise-cd)
+
+  (add-to-list 'auto-mode-alist '("\\.srvm\\'" . sr-virtual-mode))
+#+END_SRC
+
+* Shell
+
+For easy launching.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key [f1] 'shell)
+#+END_SRC
+
+In Windows (specifically) I will use the built-in bash from Git for
+Windows. It requires some special things so the display isnt filled
+with too much garbled junk.
+
+#+BEGIN_SRC emacs-lisp
+  (setq explicit-shell-file-name "C:/Program Files/Git/bin/bash.exe")
+  (setq explicit-bash.exe-args '("--login" "-i"))
+  (setq shell-file-name "bash")
+  (setenv "SHELL" shell-file-name)
+  (add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)
+  (prefer-coding-system 'utf-8)
+#+END_SRC
+
+* Version control (magit)
+
+I don't want vc to run in the background. I only want to use magit.
+
+#+BEGIN_SRC emacs-lisp
+  (setq vc-handled-backends nil) 
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x g") 'magit-status)
+  (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+#+END_SRC
+
+If I turn off the auto-refresh of the status buffer, magit will be a
+little bit snappier.
+
+#+BEGIN_SRC emacs-lisp
+  (setq magit-refresh-status-buffer nil)
+#+END_SRC
+
+In order to add magit commands to file visiting buffers, I need to set
+the global file mode.
+
+#+BEGIN_SRC emacs-lisp
+  (setq global-magit-file-mode 1)
+#+END_SRC
+
