@@ -100,6 +100,27 @@ Who doesn't like nyan-mode?
   (setq org-src-tab-acts-natively t)
 #+END_SRC
 
+* EVIL mode
+
+#+BEGIN_SRC emacs-lisp
+  (require 'evil)
+  (evil-mode 1)
+#+END_SRC
+
+Evil Nerd commenter should be loaded with recommended config.
+
+#+BEGIN_SRC emacs-lisp
+  (evilnc-default-hotkeys)
+#+END_SRC
+
+And to make surrounding stuff with delimeters (f.x. for code) even
+nicer, we add
+
+#+BEGIN_SRC emacs-lisp
+  (require 'evil-surround)
+  (global-evil-surround-mode 1)
+#+END_SRC
+
 * Sunrise commander (attention needed)
 
 Since the package is not in ELPA or MELPA, we need to always clone the

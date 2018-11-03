@@ -1,7 +1,9 @@
+(require 'package)
+
 (custom-set-variables    
  '(package-selected-packages
    (quote
-    (nyan-mode magit-svn magit omnisharp org))))
+    (evil-nerd-commenter evil-surround evil nyan-mode magit-svn magit omnisharp org))))
 
 (custom-set-variables 
  '(package-archives
