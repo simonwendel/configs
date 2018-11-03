@@ -2,6 +2,12 @@
 
 My personal configuration for a Windows machine running Emacs.
 
+* Environment 
+
+#+BEGIN_SRC emacs-list
+  (prefer-coding-system 'utf-8)
+#+END_SRC
+
 * User interface
 
 Theme, duh...
@@ -129,7 +135,6 @@ with too much garbled junk.
   (setq shell-file-name "bash")
   (setenv "SHELL" shell-file-name)
   (add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)
-  (prefer-coding-system 'utf-8)
 #+END_SRC
 
 * Version control (magit)
